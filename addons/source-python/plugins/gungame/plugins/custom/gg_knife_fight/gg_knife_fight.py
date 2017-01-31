@@ -18,6 +18,7 @@ from players.entity import Player
 # GunGame
 from gungame.core.paths import GUNGAME_DATA_PATH
 from gungame.core.plugins.manager import gg_plugin_manager
+from gungame.core.status import GunGameMatchStatus, GunGameStatus
 
 
 # =============================================================================
@@ -99,6 +100,9 @@ knife_fight_manager = _KnifeFightManager()
 # =============================================================================
 @Event('player_death')
 def _ask_knife_fight(game_event):
+    if GunGameStatus.MATCH is not GunGameMatchStatus.ACTIVE:
+        return
+
     players = list(PlayerIter('alive'))
     if len(players) != 2:
         return
