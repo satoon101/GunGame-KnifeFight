@@ -1,6 +1,6 @@
 # ../gungame/plugins/custom/gg_knife_fight/gg_knife_fight.py
 
-"""."""
+"""Plugin that allows the last 2 players to 1v1 in a knife fight."""
 
 # =============================================================================
 # >> IMPORTS
