@@ -20,6 +20,9 @@ from gungame.core.paths import GUNGAME_DATA_PATH
 from gungame.core.plugins.manager import gg_plugin_manager
 from gungame.core.status import GunGameMatchStatus, GunGameStatus
 
+# Plugin
+from .configuration import beacon_model
+
 
 # =============================================================================
 # >> GLOBAL VARIABLES
@@ -125,3 +128,55 @@ def _ask_knife_fight(game_event):
 @Event('round_end')
 def _reset_knife_fight(game_event):
     knife_fight_manager.reset()
+
+'''
+from random import randrange
+
+from colors import Color
+from effects.base import TempEntity
+from engines.precache import Model
+from events import Event
+from filters.players import PlayerIter
+from listeners.tick import Repeat, RepeatStatus
+
+
+model = Model('sprites/laser.vmt')
+# model = Model('sprites/laserbeam.vmt')
+
+
+@Repeat
+def beacon():
+    for player in PlayerIter('human'):
+        break
+    else:
+        return
+    center = player.origin
+    center.z += 10
+    entity = TempEntity(
+        'BeamRingPoint',
+        red=randrange(256),
+        green=randrange(256),
+        blue=randrange(256),
+        alpha=255,
+        start_width=5,
+        end_width=5,
+        amplitude=1.0,
+        life_time=1.0,
+        flags=0,
+        model_index=model.index,
+        halo_index=model.index,
+        center=center,
+        start_radius=10,
+        end_radius=150,
+    )
+
+    entity.create()
+
+
+@Event('player_say')
+def _stuff(game_event):
+    if beacon.status is RepeatStatus.RUNNING:
+        beacon.stop()
+    else:
+        beacon.start(0.5, execute_on_start=True)
+'''
