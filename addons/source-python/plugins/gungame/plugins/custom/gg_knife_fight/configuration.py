@@ -1,4 +1,4 @@
-# ../gungame/plugins/included/gg_knife_fight/configuration.py
+# ../gungame/plugins/custom/gg_knife_fight/configuration.py
 
 """Creates the gg_knife_fight configuration."""
 

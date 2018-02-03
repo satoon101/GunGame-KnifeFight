@@ -1,4 +1,4 @@
-# ../gungame/plugins/included/gg_knife_fight/info.py
+# ../gungame/plugins/custom/gg_knife_fight/info.py
 
 """Contains plugin information."""
 
