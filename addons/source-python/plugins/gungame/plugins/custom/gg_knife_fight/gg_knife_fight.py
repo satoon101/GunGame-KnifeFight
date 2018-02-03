@@ -5,9 +5,6 @@
 # =============================================================================
 # >> IMPORTS
 # =============================================================================
-# Site-package
-from configobj import ConfigObj
-
 # Source.Python
 from engines.server import global_vars
 from events import Event
@@ -16,18 +13,17 @@ from mathlib import Vector
 from players.entity import Player
 
 # GunGame
-from gungame.core.paths import GUNGAME_DATA_PATH
 from gungame.core.plugins.manager import gg_plugin_manager
 from gungame.core.status import GunGameMatchStatus, GunGameStatus
 
 # Plugin
-from .configuration import beacon_model
+from .configuration import beacon_model, plugin_data
 
 
 # =============================================================================
 # >> GLOBAL VARIABLES
 # =============================================================================
-locations = ConfigObj(GUNGAME_DATA_PATH / 'knife_fight_locations.ini')
+locations = plugin_data['locations']
 
 
 # =============================================================================
@@ -110,7 +106,7 @@ def _ask_knife_fight(game_event):
     if len(players) != 2:
         return
 
-    if len({player.team for player in players}) != 2:
+    if len({player.team_index for player in players}) != 2:
         if 'gg_ffa' not in gg_plugin_manager:
             return
 
