@@ -5,9 +5,6 @@
 # =============================================================================
 # >> IMPORTS
 # =============================================================================
-# Site-package
-from configobj import ConfigObj
-
 # Source.Python
 from engines.server import global_vars
 from events import Event
@@ -16,24 +13,21 @@ from mathlib import Vector
 from players.entity import Player
 
 # GunGame
-from gungame.core.paths import GUNGAME_DATA_PATH
 from gungame.core.plugins.manager import gg_plugin_manager
 from gungame.core.status import GunGameMatchStatus, GunGameStatus
 
 # Plugin
-from .configuration import beacon_model
-
+from .configuration import locations
 
 # =============================================================================
 # >> GLOBAL VARIABLES
 # =============================================================================
-locations = ConfigObj(GUNGAME_DATA_PATH / 'knife_fight_locations.ini')
 
 
 # =============================================================================
 # >> CLASSES
 # =============================================================================
-class _KnifeFightManager(object):
+class _KnifeFightManager:
     userid_1 = None
     userid_2 = None
     accepted_1 = False
@@ -84,16 +78,17 @@ class _KnifeFightManager(object):
         player_1 = Player.from_userid(self.userid_1)
         player_1.origin = Vector(map_locations[0][0])
         # TODO: test for type
-        player_1.angle = Vector(map_locations[0][1])
+        player_1.angles = Vector(map_locations[0][1])
 
         player_2 = Player.from_userid(self.userid_2)
         player_2.origin = Vector(map_locations[1][0])
         # TODO: test for type
-        player_2.angle = Vector(map_locations[1][1])
+        player_2.angles = Vector(map_locations[1][1])
 
     @staticmethod
     def chicken_player(player):
         pass
+
 
 knife_fight_manager = _KnifeFightManager()
 
@@ -101,35 +96,38 @@ knife_fight_manager = _KnifeFightManager()
 # =============================================================================
 # >> GAME EVENTS
 # =============================================================================
-@Event('player_death')
+@Event("player_death")
 def _ask_knife_fight(game_event):
     if GunGameStatus.MATCH is not GunGameMatchStatus.ACTIVE:
         return
 
-    players = list(PlayerIter('alive'))
+    players = list(PlayerIter("alive"))
     if len(players) != 2:
         return
 
-    if len({player.team for player in players}) != 2:
-        if 'gg_ffa' not in gg_plugin_manager:
-            return
+    if (
+        len({player.team_index for player in players}) != 2 and
+        "gg_ffa" not in gg_plugin_manager
+    ):
+        return
 
-    if 'gg_elimination' in gg_plugin_manager:
+    if "gg_elimination" in gg_plugin_manager:
         from gungame.plugins.included.gg_elimination.gg_elimination import (
-            eliminated_players
+            eliminated_players,
         )
-        userid = game_event['userid']
-        if userid in eliminated_players and eliminated_players[userid]:
+        userid = game_event["userid"]
+        if eliminated_players.get(userid):
             return
 
     # TODO: send menu
 
 
-@Event('round_end')
+@Event("round_end")
 def _reset_knife_fight(game_event):
     knife_fight_manager.reset()
 
-'''
+
+"""
 from random import randrange
 
 from colors import Color
@@ -179,4 +177,4 @@ def _stuff(game_event):
         beacon.stop()
     else:
         beacon.start(0.5, execute_on_start=True)
-'''
+"""

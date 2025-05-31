@@ -15,21 +15,22 @@ from gungame.core.events.resource import GGResourceFile
 # Plugin
 from .info import info
 
-
 # =============================================================================
 # >> ALL DECLARATION
 # =============================================================================
 __all__ = (
-    'GG_Knife_Fight',
+    "GG_Knife_Fight",
 )
 
 
 # =============================================================================
 # >> CLASSES
 # =============================================================================
+# ruff: noqa: N801
 class GG_Knife_Fight(CustomEvent):
+    """Called when a 1v1 knife fight begins."""
 
-    variable = ShortVariable('Description of the variable')
+    variable = ShortVariable("Description of the variable")
 
 
 # =============================================================================

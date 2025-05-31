@@ -6,7 +6,7 @@
 # >> IMPORTS
 # =============================================================================
 # GunGame
-from gungame.core.sounds.manager import sound_manager
+# from gungame.core.sounds.manager import sound_manager
 
 
 # =============================================================================
