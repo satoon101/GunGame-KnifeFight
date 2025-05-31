@@ -17,11 +17,7 @@ from gungame.core.plugins.manager import gg_plugin_manager
 from gungame.core.status import GunGameMatchStatus, GunGameStatus
 
 # Plugin
-from .configuration import locations
-
-# =============================================================================
-# >> GLOBAL VARIABLES
-# =============================================================================
+from .configuration import beacon_model, locations, plugin_data
 
 
 # =============================================================================
