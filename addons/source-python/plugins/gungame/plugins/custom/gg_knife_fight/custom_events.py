@@ -19,7 +19,8 @@ from .info import info
 # >> ALL DECLARATION
 # =============================================================================
 __all__ = (
-    "GG_Knife_Fight",
+    "GG_Knife_Fight_End",
+    "GG_Knife_Fight_Start",
 )
 
 
@@ -27,13 +28,21 @@ __all__ = (
 # >> CLASSES
 # =============================================================================
 # ruff: noqa: N801
-class GG_Knife_Fight(CustomEvent):
+class GG_Knife_Fight_Start(CustomEvent):
     """Called when a 1v1 knife fight begins."""
 
-    variable = ShortVariable("Description of the variable")
+    fighter_1 = ShortVariable("Userid of the first fighter.")
+    fighter_2 = ShortVariable("Userid of the second fighter.")
+
+
+class GG_Knife_Fight_End(CustomEvent):
+    """Called when a 1v1 knife fight begins."""
+
+    winner = ShortVariable("Userid of the winner.")
+    loser = ShortVariable("Userid of the loser.")
 
 
 # =============================================================================
 # >> RESOURCE FILE
 # =============================================================================
-GGResourceFile(info.name, GG_Knife_Fight)
+GGResourceFile(info.name, GG_Knife_Fight_Start, GG_Knife_Fight_End)

@@ -6,13 +6,13 @@
 # >> IMPORTS
 # =============================================================================
 # GunGame
-# from gungame.core.sounds.manager import sound_manager
+from gungame.core.sounds.manager import sound_manager
 
 
 # =============================================================================
 # >> SOUND REGISTRATION
 # =============================================================================
-# sound_manager.register_sound(
-#     sound_name='',
-#     default='',
-# )
+sound_manager.register_sound(
+    sound_name="knife_fight_beacon",
+    default="buttons/blip1.wav",
+)
